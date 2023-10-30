@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+/* common code here */
+.container{
+    max-width: 1100px;
+    margin: auto;
+}
+
+section{
+    padding: 80px 0;
+}
+
+body,html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background: #f5f5f5;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.line{
+    width: 80px;
+    background: #0078ff;
+    height: 4px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.menu-btn{
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+    display: none;
+}
+
+.scrollbtn{
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    background: #0078ff;
+    padding: 8px;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 500;
+    pointer-events: auto;
+}
+
+.scrollbtn i{
+    text-align: center;
+    font-size: 20px;
+    color: white;
+}
+
+/* navbar styling */
+.navbar{
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 8rem;
+    z-index: 500;
+    transition: 0.4s;
+}
+
+.navbar.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    color: #0078ff;
+    padding: 1.1rem 8rem;
+    box-shadow: 0px 6px 9px 0px rgb(0 0 0 /6%);
+}
+
+.navbar .logo a{
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+}
+
+.navbar.sticky .logo a{
+    color: #0078ff;
+}
+
+.navbar .menu li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 35px;
+    position: relative;
+}
+
+.navbar .menu li a{
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.navbar.sticky .menu li a{
+    color: #0078ff;
+}
+
+.navbar .menu li a::before{
+    content: "";
+    position: absolute;
+    width: 0%;
+    left: 0;
+    bottom: -10px;
+    height: 2px;
+    background: white;
+    transition: 0.2s;
+}
+
+.navbar.sticky .menu li a::before{
+    background: #0078ff;
+}
+
+.navbar .menu li a:hover:before{
+    width: 35px;
+}
+
+/* home styling */
+.home{
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.8)), url(https://coolbackgrounds.io/blue-background/) center center/cover no-repeat;
+    background-attachment: fixed;
+    color: white;
+}
+
+.home .home-content{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.home .home-content h1{
+    font-size: 4.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.home .home-content span{
+    font-size: 45px;
+}
+
+/* portfolio section styling */
+.portfolio-content{
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.portfolio-content .card{
+    width: 330px;
+    background: white;
+    box-shadow: 0 13px 8px -10px rgb(0 0 0 / 10%);
+    margin-bottom: 30px;
+}
+
+.portfolio-content .card .photo{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.portfolio-content .card .photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.portfolio-content .card:hover .photo img{
+    transform: scale(1.2);
+}
+
+.portfolio-content .card .info{
+    width: 100%;
+    padding: 15px;
+}
+
+.portfolio-content .card .info h3{
+    margin-bottom: 10px;
+}
+
+.portfolio-content .card .info .category{
+    color: #0078ff;
+}
+
+/* blog section styling */
+.blog-content{
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.blog-content .card{
+    width: 340px;
+    box-shadow: 0 13px 8px -10px rgb(0 0 0 / 10%);
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.125);
+}
+
+.blog-content .card .photo{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-content .card .photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.blog-content .card:hover .photo img{
+    transform: scale(1.2);
+}
+
+.blog-content .card .info{
+    width: 100%;
+    padding: 30px 20px 20px 20px;
+    position: relative;
+}
+
+.blog-content .card .info h3{
+    margin-bottom: 10px;
+}
+
+.blog-content .card .info .category{
+    position: absolute;
+    left: 50%;
+    top: -14px;
+    transform: translate(-50px);
+    border-radius: 5px;
+    background: #0078ff;
+    color: white;
+    padding: 5px 10px;
+    z-index: 105;
+}
+
+.blog-content .card .info p{
+    color: rgba(0,0,0,0.6);
+}
+
+.blog-content .card .author{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0,0,0,0.03);
+    border-top: 1px solid rgba(0,0,0,0.125);
+}
+
+.blog-content .card .author .name{
+    display: flex;
+    align-items: center;
+}
+
+.blog-content .card .author .name img{
+    width: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+
+/* services section styling */
+.services{
+    background: #111;
+    color: white;
+}
+
+.services .services-content{
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.services .services-content .card{
+    width: 330px;
+    text-align: center;
+    background: #222;
+    padding: 20px 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.services .services-content .card:hover{
+    background: #0078ff;
+}
+
+.services .services-content .card .card-content{
+    transition: 0.3s;
+}
+
+.services .services-content .card:hover .card-content{
+    transform: scale(1.07);
+}
+
+.services .services-content .card .card-content .icon{
+    padding: 5px 0;
+    color: white;
+}
+
+.services .services-content .card .card-content .icon i{
+    font-size: 5rem;
+}
+
+.services .services-content .card .card-content .card-title{
+    padding: 5px 0;
+    font-size: 25px;
+    font-weight: 500;
+    color: #0078ff;
+}
+
+.services .services-content .card:hover .card-content .card-title{
+    color: white;
+}
+
+  
+
+/* about me styling */
+.about-content{
+    background: white;
+    width: 100%;
+    padding: 2.5rem 3rem;
+    display: flex;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 /6%), 0 2px 5px 0 rgb(0 0 0 / 20%);
+}
+
+.about-content .info{
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-content .info .personal{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.about-content .info .personal .photo{
+    width: 40%;
+    display: flex;
+}
+
+.about-content .info .personal .photo img{
+    border-radius: 5px;
+}
+
+.about-content .info .personal .name{
+    align-items: flex-start;
+    width: 60%;
+}
+
+.about-content .info .personal .name p{
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.about-content .info .personal .name p span{
+    font-weight: 600
+}
+
+.about-content .info .skills{
+    margin-top: 25px;
+}
+
+.about-content .info .skills h4{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.about-content .info .skills .skill{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-content .info .skills .progress-line{
+    margin-top: 10px;
+    height: 8px;
+    width: 100%;
+    background: #cde1f8;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.about-content .info .skills .progress-line span{
+    position: absolute;
+    height: 100%;
+    background: #0078ff;
+}
+
+.about-content .info .skills .progress-line .html{
+    width: 95%;
+}
+
+.about-content .info .skills .progress-line .css{
+    width: 85%;
+}
+
+.about-content .info .skills .progress-line .javascript{
+    width: 75%;
+}
+
+.about-content .info .skills .progress-line .php{
+    width: 75%;
+}
+
+.about-content .aboutme{
+    width: 50%;
+    padding: 0 20px;
+}
+
+.about-content .aboutme h5{
+    font-size: 2rem;
+    position: relative;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+}
+
+.about-content .aboutme h5::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 80px;
+    height: 4px;
+    background: #6B6B6B;
+}
+
+.about-content .aboutme p{
+    font-weight: 300;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* contact section styling */
+.contact{
+    position: relative;
+    color: white;
+    width: 100%;
+    background: url(images/overlay-bg.jpg) center center/cover no-repeat;
+    background-attachment: fixed;
+    z-index: 0;
+    padding-bottom: 30px;
+}
+
+.contact .overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #0078ff;
+    opacity: 0.7;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.contact .contact-content{
+    background: white;
+    color: black;
+    z-index: 100;
+    width: 100%;
+    padding: 2.5rem;
+    display: flex;
+}
+
+.contact .contact-content .heading{
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.contact .contact-content .line{
+    margin: 0;
+    width: 100px;
+    height: 4px;
+    margin-top: 12px;
+    margin-bottom: 25px;
+}
+
+.contact .contact-content .message{
+    width: 50%;
+    padding: 0 15px;
+}
+
+.contact .contact-content .message .field{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.contact .contact-content .message .field input,
+.contact .contact-content .message .field textarea{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #888;
+    outline: none;
+    border-radius: 5px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.contact .contact-content .message .field textarea{
+    height: 100px;
+    padding-top: 5px;
+}
+
+.contact .contact-content .message button{
+    padding: 15px 25px;
+    background: #0078ff;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.contact .contact-content .gettouch{
+    width: 50%;
+    padding: 0 15px;
+}
+
+.contact .contact-content .gettouch p{
+    color: rgba(0,0,0,0.6);
+    font-weight: 300;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.contact .contact-content .gettouch .info{
+    margin-bottom: 15px;
+}
+
+.contact .contact-content .gettouch .info i{
+    font-size: 18px;
+    color: #0078ff;
+    margin-right: 15px;
+}
+
+.contact .contact-content .gettouch .social{
+    width: 100%;
+}
+
+.contact .contact-content .gettouch .social i{
+    width: 45px;
+    font-size: 25px;
+    color: white;
+    background: #444;
+    padding: 10px;
+    text-align: center;
+    margin: 20px 5px 0 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.5s;
+} 
+
+.contact .contact-content .gettouch .social i:hover{
+    background: #0078ff;
+    transform: translateY(-10px);
+}
+
+.contact .footer{
+    margin-top: 35px;
+}
+
+.contact .footer p{
+    text-align: center;
+    font-size: 18px;
+}
+
+.contact .footer p a{
+    text-transform: none;
+    color: white;
+}
+
+/* responsive styling start here */
+@media (max-width:1024px){
+    .navbar,
+    .navbar.sticky{
+        padding: 0.5rem 1.5rem;
+    }
+
+    .about .container{
+        padding: 0 1.5rem;
+    }
+
+    .contact .container{
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width:890px){
+    .about .container{
+        padding: 0 1rem;
+    }
+
+    .about-content{
+        display: block;
+        padding: 25px;
+    }
+
+    .about-content .info{
+        width: 100%;
+        display: flex;
+        padding: 0;
+    }
+
+    .about-content .aboutme{
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media (max-width:768px){
+    .navbar,
+    .navbar.sticky{
+        padding: 0.5rem 2.5rem;
+    }
+
+    .navbar .menu{
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        left: -100%;
+        top: 0;
+        background: #0078ff;
+        color: white;
+        text-align: center;
+        padding-top: 50px;
+        transition: 0.5s;
+    }
+
+    .navbar .menu.active{
+        left: 0;
+    }
+
+    .navbar .menu li{
+        display: block;
+        margin: 0;
+    }
+
+    .navbar .menu li a{
+        display: inline-block;
+        margin: 20px 0;
+        font-size: 25px;
+    }
+
+    .navbar .menu li a:hover::before{
+        width: 0vh;
+    }
+
+    .navbar .menu li a,
+    .navbar.sticky .menu li a{
+        color: white;
+    }
+
+    .navbar .menu-btn{
+        display: block;
+        z-index: 999;
+    }
+
+    .navbar.sticky .menu-btn i{
+        color: black;
+    }
+
+    .navbar .menu-btn i.active:before{
+        content: "\f00d";
+    }
+
+    .navbar.sticky .menu-btn i.active{
+        color: white;
+    }
+
+    .home .home-content h1{
+        text-align: center;
+        padding: 0 20px;
+        font-size: 3.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .home .home-content span{
+        font-size: 40px;
+    }
+
+    .contact .container{
+        padding: 0 15px;
+    }
+
+    .contact .contact-content{
+        display: block;
+    }
+
+    .contact .contact-content .message{
+        width: 100%;
+        padding: 0;
+        margin-bottom: 30px;
+    }
+
+    .contact .contact-content .message button{
+        padding: 10px 15px;
+    }
+
+    .contact .contact-content .gettouch{
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media (max-width:500px){
+    .home .home-content h1{
+        font-size: 2.5rem;
+    }
+
+    .home .home-content span{
+        font-size: 30px;
+    }
+
+    .about-content .info .personal{
+        display: block;
+    }
+
+    .about-content .info .personal .photo{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .about-content .info .personal .name{
+        width: 100%;
+    }
+}
+
+</style>
+<script>
+var typing = new Typed (".typing",{
+
+    strings : ["Web Developer", "Youtuber", "Web Designer", "Blogger", "Freelancer"],
+    typeSpeed:100,
+    backSpeed :60,
+    loop:true
+
+});
+
+// sticky navbar
+window.onscroll = function(){
+
+    var navbar = document.getElementById("navbar");
+
+    if(window.scrollY > 55){
+        navbar.classList.add("sticky");
+    }
+    else{
+        navbar.classList.remove("sticky");
+    }
+
+    // scroll to top
+    let button = document.getElementById("btn");
+
+    if(document.documentElement.scrollTop > 90){
+        button.style.display = "block";
+    }
+    else{
+        button.style.display = "none";
+    }
+
+};
+
+function scrolltoTop(){
+    document.documentElement.scrollTop = 0;
+}
+
+// menu toggle bar
+function menu(){
+    let menu = document.getElementById("menu");
+    let menubar = document.querySelector(".menu-btn i");
+
+    menu.classList.toggle("active");
+    menubar.classList.toggle("active");
+}
+
+</script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>DevFolio Website - Coding Power</title>
+
+    <!-- typed.js  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- scroll to top button -->
+    <button class="scrollbtn" id="btn" type="button" onclick="scrolltoTop()"><i class="fa fa-arrow-up"></i></button>
+
+    <!-- navbar code start here -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="#home">GAGAN D V </a>
+        </div>
+        <ul class="menu" id="menu">
+            <li><a href="#home" onclick="menu()">HOME</a></li>
+            <li><a href="#portfolio" onclick="menu()">PORTFOLIO</a></li>
+            <li><a href="#blog" onclick="menu()">MY BLOG</a></li>
+            <li><a href="#services" onclick="menu()">SERVICES</a></li>
+            <li><a href="#about" onclick="menu()">ABOUT </a></li>
+            <li><a href="#contact" onclick="menu()">CONTACT</a></li>
+        </ul>
+        <div class="menu-btn" onclick="menu()"><i class="fa fa-bars"></i></div>
+    </nav>
+
+    <!-- home section start here -->
+    <div class="home" id="home">
+        <div class="home-content">
+            <h1 class="name">GAGAN DESIGNS</h1>
+            <p><span class="typing"></span></p>
+        </div>
+    </div>
+    
+
+ 
+   
+
+    <!-- portfolio section start here -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h3 class="title">Portfolio</h3>
+            <div class="line"></div>
+            <div class="portfolio-content">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQVepOBbSyzElStSgRMVMICzcWGDUIfxaYWw&usqp=CAU" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Project 1</h3>
+                            <p><span class="category">Web Design</span> /TRAVEL TIPS WEBSITE</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="https://blog.ipleaders.in/wp-content/uploads/2019/11/foodmitho.jpg" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Project 2</h3>
+                            <p><span class="category">Food Delivery</span> /APP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="data:image/jpeg;base64,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" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Project 3</h3>
+                            <p><span class="category">Social Media</span> /APP</p>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!-- blog section start here -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <h3 class="title">MY BLOG</h3>
+            <div class="line"></div>
+            <div class="blog-content">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="https://www.creativeitinstitute.com/images/course/course_1663052056.jpg" alt="">
+                        </div>
+                        
+                        <div class="info">
+                            <h3>ME</h3>
+                            <div class="category">Developer</div>
+                            <p></p>
+                        </div>
+                        <div class="author">
+                            <div class="name">
+                                <img src="" alt="">
+                    
+                            </div>
+                            <div class="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="https://www.boardinfinity.com/blog/content/images/2022/04/Recent-Blog-Creatives---Pepper--15--1.png" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Web Design Blog</h3>
+                            <div class="category">Hackathon</div>
+                           
+                        </div>
+                        <div class="author">
+                            <div class="name">
+                                <img src="" alt="">
+                        
+                            </div>
+                            <div class="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="photo">
+                            <img src="https://etimg.etb2bimg.com/thumb/msid-93867928,imgsize-34558,width-1200,height=765,overlay-etciosea/news/security/cybersecurity-market-worth-usd-266-billion-by-2027-report.jpg" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Web Design Blog</h3>
+                            <div class="category">Cyber Security</div>
+                            
+                        </div>
+                        <div class="author">
+                            <div class="name">
+                                <img src="images/testimonial-2.jpg" alt="">
+                                
+                            </div>
+                            <div class="date">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- services section start here -->
+    <section class="services" id="services">
+        <div class="container">
+            <h3 class="title">SERVICES</h3>
+            <div class="line"></div>
+            <div class="services-content">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fa fa-code"></i></div>
+                        <div class="card-title">Web Development</div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fas fa-award"></i></div>
+                        <div class="card-title">Award and Certification</div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fas fa-database"></i></div>
+                        <div class="card-title">Database</div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fas fa-microchip"></i></div>
+                        <div class="card-title">Responsive Design</div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fa fa-line-chart"></i></div>
+                        <div class="card-title">Advertising</div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon"><i class="fa fa-mobile"></i></div>
+                        <div class="card-title">App Development</div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- about section start here -->
+<section class="about" id="about">
+    <div class="container">
+        <h3 class="title">ABOUT</h3>
+        <div class="about-content">
+            <div class="info">
+                <div class="personal">
+                    <div class="photo">
+                        <img src="images/testimonial-2.jpg" alt="">
+                    </div>
+                    <div class="name">
+                        <p><span>Name:</span> Gagan D V</p>
+                        <p><span>Profile:</span>WEB DEVELOPER</p>
+                        <p><span>Email:</span> gagandvgagandv@example.com</p>
+                        <p><span>Phone:</span>6362995068</p>
+                    </div>
+                </div>
+                </section>
+
+   
+ <!-- contact section start here -->
+    <section class="contact" id="contact">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="contact-content">
+                <div class="message">
+                    <form>
+                        <h3 class="heading">Send Message us</h3>
+                        <div class="line"></div>
+                        <div class="field">
+                            <input type="text" placeholder="Your Name">
+                        </div>
+                        <div class="field">
+                            <input type="email" placeholder="Your Email">
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="Subject">
+                        </div>
+                        <div class="field">
+                            <textarea cols="30" rows="10" placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+                <div class="gettouch">
+                    <h3 class="heading">Get in Touch</h3>
+                    <div class="line"></div>
+                    <div class="info"><i class="fa fa-map-marker"></i>KARNATAKA BANGALORE</div>
+                    <div class="info"><i class="fa fa-phone"></i>6362995068</div>
+                    <div class="info"><i class="fa fa-envelope"></i>gagandvgagandv@gmail.com</div>
+                    <div class="social">
+                        <i class="fa fa-facebook"></i>
+                        <i class="fa fa-instagram"></i>
+                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-youtube-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>© Copyright gaganinfo97. All Rights Reserved</p>
+            <p>Designed by Gagan D V</p>
+        </footer>
+    </section>
+    
+    <script src="main.js"></script>
+</body>
+</html>
+
+
